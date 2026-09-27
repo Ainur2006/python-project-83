@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Анализатор страниц</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/output.css') }}"
+    >
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Навигация -->
+    <nav class="bg-gray-800">
+        <div class="mx-auto max-w-7xl px-4">
+            <div class="flex h-14 items-center gap-6">
+                <a
+                    href="/"
+                    class="text-xl text-white"
+                >
+                    Анализатор страниц
+                </a>
+
+                <a
+                    href="#"
+                    class="text-gray-400 hover:text-white"
+                >
+                    Сайты
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основное содержимое -->
+    <main class="flex-1">
+        <div class="mx-auto max-w-5xl px-4 py-4">
+
+            <div class="rounded-lg border border-gray-300 bg-gray-50 p-12">
+
+                <h1 class="text-6xl font-normal text-gray-800">
+                    Анализатор страниц
+                </h1>
+
+                <p class="mt-3 text-xl text-gray-800">
+                    Бесплатно проверяйте сайты на SEO-пригодность
+                </p>
+
+                <form
+                    action="#"
+                    method="post"
+                    class="mt-5 flex gap-4"
+                >
+                    <input
+                        type="url"
+                        name="url"
+                        placeholder="https://www.example.com"
+                        class="flex-1 rounded-lg border-gray-300 px-4 py-2 text-lg shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    >
+
+                    <button
+                        type="submit"
+                        class="rounded-lg bg-blue-600 px-8 py-2 text-lg font-medium text-white hover:bg-blue-700"
+                    >
+                        ПРОВЕРИТЬ
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 py-5">
+        <div class="text-center">
+            <a
+                href="https://hexlet.io"
+                class="text-blue-600 underline"
+            >
+                Hexlet
+            </a>
+        </div>
+    </footer>
+
+</body>
+</html>
