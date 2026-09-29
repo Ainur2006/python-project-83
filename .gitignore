@@ -9,7 +9,5 @@ htmlcov/
 build/
 .vscode/
 node_modules/
-package-lock.json
-package.json
 node_modules/
 page_analyzer/static/css/main.css

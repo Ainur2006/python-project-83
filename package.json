@@ -1,0 +1,26 @@
+{
+  "name": "python-project-83",
+  "version": "1.0.0",
+  "description": "[![hexlet-check](https://github.com/Ainur2006/python-project-83/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Ainur2006/python-project-83/actions)",
+  "main": "index.js",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "@tailwindcss/forms": "^0.5.11",
+    "tailwindcss": "^4.3.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "tailwindcss --input assets/css/source.css --output page_analyzer/static/css/main.css --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ainur2006/python-project-83.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ainur2006/python-project-83/issues"
+  },
+  "homepage": "https://github.com/Ainur2006/python-project-83#readme"
+}
