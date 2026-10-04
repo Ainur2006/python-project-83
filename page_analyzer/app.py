@@ -1,17 +1,10 @@
 import os
 
 from dotenv import load_dotenv
-from flask import (
-    Flask, 
-    render_template, 
-    request, 
-    flash,      
-    redirect,
-    url_for
-    )
+from flask import Flask, flash, redirect, render_template, request, url_for
+
 from .urls_repository import UrlsRepository
 from .validator import validate_url
-
 
 load_dotenv()
 app = Flask(__name__)
