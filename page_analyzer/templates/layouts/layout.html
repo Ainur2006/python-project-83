@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Анализатор страниц{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <nav class="bg-gray-800">
+        <div class="mx-auto max-w-7xl px-4">
+            <div class="flex h-14 items-center gap-6">
+                <a href="{{ url_for('index') }}" class="text-xl text-white">
+                    Анализатор страниц
+                </a>
+
+                <a href="{{ url_for('urls_get') }}" class="text-gray-400 hover:text-white">
+                    Сайты
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="mx-auto max-w-7xl px-4 pt-4">
+                {% for category, message in messages %}
+                    <div
+                        role="alert"
+                        class="rounded-lg bg-green-100 p-4 text-green-800"
+                    >
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main class="flex-1">
+    {% block content %}
+    {% endblock %}
+    </main>
+
+    <footer class="border-t border-gray-200 py-5">
+        <div class="text-center">
+            <a href="https://hexlet.io" class="text-blue-600 underline">
+                Hexlet
+            </a>
+        </div>
+    </footer>
+
+</body>
+
+</html>

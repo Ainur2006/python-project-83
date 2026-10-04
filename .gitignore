@@ -9,5 +9,4 @@ htmlcov/
 build/
 .vscode/
 node_modules/
-node_modules/
 page_analyzer/static/css/main.css

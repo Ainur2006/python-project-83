@@ -1,0 +1,37 @@
+{% extends "layouts/layout.html" %}
+
+{% block content %}
+<main class="flex-1">
+    <div class="mx-auto max-w-5xl px-4 py-4">
+
+        <div class="rounded-lg border border-gray-300 bg-gray-50 p-12">
+
+            <h1 class="text-6xl font-normal text-gray-800">
+                Анализатор страниц
+            </h1>
+
+            <p class="mt-3 text-xl text-gray-800">
+                Бесплатно проверяйте сайты на SEO-пригодность
+            </p>
+
+            {% if errors %}
+            <div role="alert" class="mt-4 rounded-lg bg-red-100 p-4 text-red-800">
+                {{ errors }}
+            </div>
+            {% endif %}
+
+            <form action="{{ url_for('urls_post') }}" method="post" class="mt-5 flex gap-4">
+                <input type="url" name="url" value="{{ url or '' }}" placeholder="https://www.example.com"
+                    class="flex-1 rounded-lg border-gray-300 px-4 py-2 text-lg shadow-sm focus:border-blue-500 focus:ring-blue-500">
+
+                <button type="submit"
+                    class="rounded-lg bg-blue-600 px-8 py-2 text-lg font-medium text-white hover:bg-blue-700">
+                    ПРОВЕРИТЬ
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+</main>
+{% endblock %}
