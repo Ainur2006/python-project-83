@@ -21,7 +21,7 @@ def index():
 
 @app.get('/urls')
 def urls_get():
-    urls = repo.get_content()
+    urls = repo.get_last_check()
     return render_template(
         'urls/show_urls.html',
         urls=urls,
@@ -46,8 +46,23 @@ def urls_post():
 @app.get('/urls/<id>')
 def urls_show(id):
     url = repo.find(id)
+    checks = repo.get_content_checks(id)
     return render_template(
         'urls/show.html',
         url=url,
+        checks=checks,
     )
 
+
+@app.post('/urls/<id>/checks')
+def url_check_post(id):
+    # url_data = repo.find(id)
+    # try:
+    #     pass
+    # except:
+    #     flash('Произошла ошибка при проверке', 'danger')
+    #     return redirect(url_for('urls_show', id=id))
+    app.logger.info("Saving check for url_id=%s", id)
+    repo.save_checks(id)
+    flash('Страница успешно проверена', 'success')
+    return redirect(url_for('urls_show', id=id))

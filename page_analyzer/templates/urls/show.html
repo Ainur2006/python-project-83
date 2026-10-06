@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="mx-auto max-w-5xl px-4 py-4">
+<div class="w-full px-4 py-4">
 
     <h1 class="mb-4 text-4xl font-normal text-gray-800">
         Сайт: {{ url.name }}
@@ -41,6 +41,53 @@
         </tbody>
     </table>
 
+
+    <form method="post" action="{{ url_for('url_check_post', id=url.id) }}">
+        <input type="submit" value="Запустить проверку"
+            class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
+    </form>
+
+    <table data-test="checks" class="mt-6 w-full border-collapse border border-gray-300 text-left">
+        <thead>
+            <tr>
+                <th class="border border-gray-300 px-3 py-2">ID</th>
+                <th class="border border-gray-300 px-3 py-2">URL ID</th>
+                <th class="border border-gray-300 px-3 py-2">Код ответа</th>
+                <th class="border border-gray-300 px-3 py-2">H1</th>
+                <th class="border border-gray-300 px-3 py-2">Title</th>
+                <th class="border border-gray-300 px-3 py-2">Description</th>
+                <th class="border border-gray-300 px-3 py-2">Дата создания</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for check in checks %}
+            <tr>
+                <td class="border border-gray-300 px-3 py-2">
+                    {{ check.id }}
+                </td>
+                <td class="border border-gray-300 px-3 py-2">
+                    {{ check.url_id }}
+                </td>
+                <td class="border border-gray-300 px-3 py-2">
+                    {{ check.status_code }}
+                </td>
+                <td class="border border-gray-300 px-3 py-2">
+                    {{ check.h1 }}
+                </td>
+                <td class="border border-gray-300 px-3 py-2">
+                    {{ check.title }}
+                </td>
+                <td class="border border-gray-300 px-3 py-2">
+                    {{ check.description }}
+                </td>
+                <td class="border border-gray-300 px-3 py-2">
+                    {{ check.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 {% endblock %}

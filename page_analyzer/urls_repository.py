@@ -15,10 +15,10 @@ class UrlsRepository:
                 cur.execute('SELECT * FROM urls ORDER BY created_at DESC')
                 return cur.fetchall()
 
-    def find(self, id):
+    def find(self, url_id):
         with self.get_connection() as conn:
             with conn.cursor(row_factory=dict_row) as cur:
-                cur.execute('SELECT * FROM urls WHERE id = %s', (id,))
+                cur.execute('SELECT * FROM urls WHERE id = %s', (url_id,))
                 return cur.fetchone()
 
     def save(self, name):
@@ -41,3 +41,56 @@ class UrlsRepository:
                     (name,),
                 )
                 return cur.fetchone()["id"]
+
+    def get_content_checks(self, url_id):
+        with self.get_connection() as conn:
+            with conn.cursor(row_factory=dict_row) as cur:
+                cur.execute(
+                    '''
+                    SELECT * FROM url_checks
+                    WHERE url_id = %s
+                    ''',
+                    (url_id,))
+                return cur.fetchall()
+
+    def save_checks(self, url_id):
+        with self.get_connection() as conn:
+            with conn.cursor(row_factory=dict_row) as cur:
+                cur.execute(
+                    '''
+                    INSERT INTO url_checks (
+                        url_id
+                        )
+                    VALUES (%s)
+                    ''',
+                    (url_id, )
+
+                    # status_code, 
+                    # h1,
+                    # title,
+                    # description
+                    #  url_data['status_code'],
+                    #  url_data['h1'], url_data['title'],
+                    #  url_data['description'])
+                )
+            conn.commit()
+
+    def get_last_check(self):
+        with self.get_connection() as conn:
+            with conn.cursor(row_factory=dict_row) as cur:
+                cur.execute('''
+                            SELECT DISTINCT ON (u.id)
+                            u.id, 
+                            u.name,
+                            uc.created_at AS last_check,
+                            uc.status_code AS last_status_code
+                            FROM urls AS u
+                            LEFT JOIN url_checks AS uc
+                            ON u.id = uc.url_id
+                            ORDER BY u.id DESC
+                            ''')
+                return cur.fetchall()
+
+
+    
+
