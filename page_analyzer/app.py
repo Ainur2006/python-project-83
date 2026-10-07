@@ -1,5 +1,6 @@
 import os
 
+import requests
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, url_for
 
@@ -56,13 +57,18 @@ def urls_show(id):
 
 @app.post('/urls/<id>/checks')
 def url_check_post(id):
-    # url_data = repo.find(id)
-    # try:
-    #     pass
-    # except:
-    #     flash('Произошла ошибка при проверке', 'danger')
-    #     return redirect(url_for('urls_show', id=id))
+    url_data = repo.find(id)
+
+    try:
+        response = requests.get(url_data['name'])
+        response.raise_for_status()
+    except requests.RequestException as e:
+        app.logger.info(e)
+        flash('Произошла ошибка при проверке', 'error')
+        return redirect(url_for('urls_show', id=id))
+
+    status_code = response.status_code
     app.logger.info("Saving check for url_id=%s", id)
-    repo.save_checks(id)
+    repo.save_checks(id, status_code)
     flash('Страница успешно проверена', 'success')
     return redirect(url_for('urls_show', id=id))
