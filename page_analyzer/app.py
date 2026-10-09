@@ -4,6 +4,7 @@ import requests
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, url_for
 
+from .parser import parse_html
 from .urls_repository import UrlsRepository
 from .validator import validate_url
 
@@ -58,7 +59,6 @@ def urls_show(id):
 @app.post('/urls/<id>/checks')
 def url_check_post(id):
     url_data = repo.find(id)
-
     try:
         response = requests.get(url_data['name'])
         response.raise_for_status()
@@ -67,8 +67,8 @@ def url_check_post(id):
         flash('Произошла ошибка при проверке', 'error')
         return redirect(url_for('urls_show', id=id))
 
-    status_code = response.status_code
+    url_check_data = parse_html(url_data['name'])
+    repo.save_checks(id, url_check_data)
     app.logger.info("Saving check for url_id=%s", id)
-    repo.save_checks(id, status_code)
     flash('Страница успешно проверена', 'success')
     return redirect(url_for('urls_show', id=id))

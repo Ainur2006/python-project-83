@@ -53,27 +53,28 @@ class UrlsRepository:
                     (url_id,))
                 return cur.fetchall()
 
-    def save_checks(self, url_id, status_code):
+    def save_checks(self, url_id, url_check_data):
         with self.get_connection() as conn:
             with conn.cursor(row_factory=dict_row) as cur:
                 cur.execute(
                     '''
                     INSERT INTO url_checks (
                         url_id,
-                        status_code
+                        status_code,
+                        h1,
+                        title,
+                        description
                         )
-                    VALUES (%s, %s)
+                    VALUES (%s, %s, %s, %s, %s)
                     ''',
-                    (url_id, status_code)
-
-                    # status_code, 
-                    # h1,
-                    # title,
-                    # description
-                    #  url_data['status_code'],
-                    #  url_data['h1'], url_data['title'],
-                    #  url_data['description'])
+                    (url_id, 
+                     url_check_data['status_code'],
+                     url_check_data['h1'],
+                     url_check_data['title'],
+                     url_check_data['description'],
+                     )
                 )
+
             conn.commit()
 
     def get_last_check(self):
