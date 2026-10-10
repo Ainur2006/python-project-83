@@ -1,5 +1,6 @@
-import validators
 from urllib.parse import urlparse
+
+import validators
 
 
 def validate_url(url):
@@ -10,6 +11,7 @@ def validate_url(url):
     if not validators.url(url):
         return "URL некорректный"
     return None
+
 
 def normalize_url(url):
     parsed_url = urlparse(url)

@@ -6,7 +6,7 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 
 from .parser import parse_html
 from .urls_repository import UrlsRepository
-from .validator import validate_url, normalize_url
+from .validator import normalize_url, validate_url
 
 load_dotenv()
 app = Flask(__name__)
