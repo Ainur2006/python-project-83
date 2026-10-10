@@ -41,7 +41,7 @@ def urls_post():
             errors=errors,
         ), 422
     repo.save(url)
-    flash('URL успешно добавлен!', 'success')
+    flash('Страница успешно добавлена', 'success')
     return redirect(url_for('urls_get'))
 
 
@@ -70,5 +70,5 @@ def url_check_post(id):
     url_check_data = parse_html(url_data['name'])
     repo.save_checks(id, url_check_data)
     app.logger.info("Saving check for url_id=%s", id)
-    flash('Страница успешно проверена', 'success')
+    flash('Страница успешно добавлена', 'success')
     return redirect(url_for('urls_show', id=id))
