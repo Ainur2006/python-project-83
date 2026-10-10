@@ -21,6 +21,12 @@ class UrlsRepository:
                 cur.execute('SELECT * FROM urls WHERE id = %s', (url_id,))
                 return cur.fetchone()
 
+    def find_by_name(self, name):
+        with self.get_connection() as conn:
+            with conn.cursor(row_factory=dict_row) as cur:
+                cur.execute('SELECT * FROM urls WHERE name = %s', (name,))
+                return cur.fetchone() 
+
     def save(self, name):
         with self.get_connection() as conn:
             with conn.cursor(row_factory=dict_row) as cur:
