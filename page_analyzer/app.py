@@ -6,7 +6,7 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 
 from .parser import parse_html
 from .urls_repository import UrlsRepository
-from .validator import validate_url
+from .validator import validate_url, normalize_url
 
 load_dotenv()
 app = Flask(__name__)
@@ -40,8 +40,16 @@ def urls_post():
             url=url,
             errors=errors,
         ), 422
-    url_id = repo.save(url)
-    flash('Страница успешно добавлена', 'success')
+
+    normalized = normalize_url(url)
+    
+    existed_url = repo.find_by_name(normalized)
+    if existed_url:
+        flash('Страница уже существует', 'success')
+        url_id = existed_url['id']
+    else:
+        url_id = repo.save(normalized)
+        flash('Страница успешно добавлена', 'success')
     return redirect(url_for('urls_show', id=url_id))
 
 
