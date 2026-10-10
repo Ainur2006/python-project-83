@@ -40,13 +40,8 @@ def urls_post():
             url=url,
             errors=errors,
         ), 422
-    existed_url = repo.find_by_name(url)
-    if existed_url:
-        flash('Страница уже существует', 'success')
-        url_id = existed_url['id']
-    else:
-        url_id = repo.save(url)
-        flash('Страница успешно добавлена', 'success')
+    url_id = repo.save(url)
+    flash('Страница успешно добавлена', 'success')
     return redirect(url_for('urls_show', id=url_id))
 
 
