@@ -2,14 +2,11 @@ from bs4 import BeautifulSoup
 
 
 def truncate(text):
-
     if text is None:
         return None
-    
-    if len(text) <= 255:
-        return text
-    
-    return text[:252] + '...'
+    if len(text) > 255:
+        return text[:252] + '...'
+    return text
 
 
 def parse_html(html, status_code):
