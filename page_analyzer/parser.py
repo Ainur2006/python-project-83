@@ -13,7 +13,7 @@ def parse_html(url):
     meta = soup.find("meta", attrs={"name": "description"})
     return {
         'status_code': response.status_code,
-        'h1': h1.get_text(strip=True) if h1 else None,
-        'title': title.get_text(strip=True) if title else None,
-        'description': meta.get('content') if meta else None, 
+        'h1': h1.get_text(strip=True)[:255] if h1 else None,
+        'title': title.get_text(strip=True)[:255] if title else None,
+        'description': meta.get('content')[:255] if meta else None, 
     }
