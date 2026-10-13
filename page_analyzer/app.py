@@ -75,7 +75,7 @@ def url_check_post(id):
         flash('Произошла ошибка при проверке', 'error')
         return redirect(url_for('urls_show', id=id))
 
-    url_check_data = parse_html(url_data['name'])
+    url_check_data = parse_html(response.text, response.status_code)
     repo.save_checks(id, url_check_data)
     app.logger.info("Saving check for url_id=%s", id)
     flash('Страница успешно проверена', 'success')
