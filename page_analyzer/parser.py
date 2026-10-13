@@ -10,13 +10,10 @@ def parse_html(url):
     
     h1 = soup.find("h1")
     title = soup.find("title")
-    description = soup.find(
-        "meta",
-        attrs={"name": "description"}
-    )
+    meta = soup.find("meta", attrs={"name": "description"})
     return {
         'status_code': response.status_code,
         'h1': h1.get_text(strip=True) if h1 else None,
         'title': title.get_text(strip=True) if title else None,
-        'description': description.get_text(strip=True)if description else None 
+        'description': meta.get('content') if meta else None, 
     }
